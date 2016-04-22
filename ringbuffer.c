@@ -43,7 +43,7 @@ bool ringbuffer_pop(struct ringbuffer_t *buffer, uint32_t *data) {
 	if ((data == NULL) || (!ringbuffer_check_validity(buffer)))
 		return false;
 
-	if (RINGBUFFER_EMPTY(buffer) >= 1)
+	if (RINGBUFFER_EMPTY((*buffer)) >= 1)
 		return false;
 
 	*data = buffer->data[buffer->tail];
@@ -62,7 +62,7 @@ bool ringbuffer_push(struct ringbuffer_t *buffer, uint32_t data) {
 	if (!ringbuffer_check_validity(buffer))
 		return false;
 
-	if (RINGBUFFER_FULL(buffer) >= 1)
+	if (RINGBUFFER_FULL((*buffer)) >= 1)
 		return false;
 
 	buffer->data[buffer->head] = data;
@@ -81,7 +81,7 @@ bool ringbuffer_peek(const struct ringbuffer_t *buffer, uint32_t *data) {
 	if ((data == NULL) || (!ringbuffer_check_validity(buffer)))
 		return false;
 
-	if (RINGBUFFER_EMPTY(buffer) >= 1)
+	if (RINGBUFFER_EMPTY((*buffer)) >= 1)
 		return false;
 
 
