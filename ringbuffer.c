@@ -6,18 +6,19 @@
  */
 
 #include <stdio.h>
+
+#if __STDC_VERSION__ >= 199901L
+/* C99 code */
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "ringbuffer.h"
-
-#ifndef __STDC_VERSION__ >= 199901L
-/* C99 code */
+#else
 #error "Compiler must support C99"
 #endif
 
+#include "ringbuffer.h"
 
-static inline bool ringbuffer_check_validity(struct ringbuffer_t *buffer) {
+static inline bool ringbuffer_check_validity(const struct ringbuffer_t *buffer) {
 	if (buffer == NULL || buffer->data == NULL)
 		return false;
 
