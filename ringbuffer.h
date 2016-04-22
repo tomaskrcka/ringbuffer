@@ -22,8 +22,6 @@ struct ringbuffer_t {
 #define RINGBUFFER_DEFINE(buff,size) uint32_t buff##_space[size]; struct ringbuffer_t buff = { buff##_space,0,0,0,size}
 #define RINGBUFFER_DEFINE_ARR(buff, arr) struct ringbuffer_t buff = { arr,0,0,0, (uint16_t) (sizeof(arr)/sizeof(uint32_t))}
 
-#define RINGBUFFER_FOREACH(buff, item) \
-		for (;ringbuffer_pop(buff, item) == true;)
 
 #define RINGBUFFER_EMPTY(buffer) ((buffer)->count == 0)
 #define RINGBUFFER_FULL(buffer) (((buffer)->max_length - (buffer)->count) == 0)
