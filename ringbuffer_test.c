@@ -5,22 +5,19 @@
 
 #include "ringbuffer.h"
 
+#define BUFFER_SIZE	128
+
 #define START_NEW_TEST(test_num, name) \
     fprintf(stderr, "Test %d (%s) ... ", (++test_num), name);
 
 #define END_TEST(test_num) \
     fprintf(stderr, "pass.\n");
 
-bool fill_buffer(struct ringbuffer_t *buf, const uint32_t *test_pattern,
-		uint16_t size) {
-	uint16_t i;
+static bool fill_buffer_to_full(struct ringbuffer_t *buf) {
+	uint32_t i;
 
-	if (size > (RINGBUFFER_FREE_SIZE(buf))) {
-		return false;
-	}
-
-	for (i = 0; i < size; i++) {
-		if (!ringbuffer_push(buf, test_pattern[i])) {
+	for (i = 0; i < RINGBUFFER_MAXSIZE(buf); i++) {
+		if (!ringbuffer_push(buf, i)) {
 			ringbuffer_reset(buf);
 			return false;
 		}
@@ -29,7 +26,7 @@ bool fill_buffer(struct ringbuffer_t *buf, const uint32_t *test_pattern,
 	return true;
 }
 
-#define BUFFER_SIZE	32
+
 
 int main() {
 	int test_num = 0;
@@ -68,9 +65,9 @@ int main() {
 	END_TEST(test_num);
 
 	/**
-	 * Fill buffer to full
+	 * Fill buffer with test data
 	 */
-	START_NEW_TEST(test_num, "Fill buffer to full");
+	START_NEW_TEST(test_num, "Fill buffer with test data");
 
 	assert(RINGBUFFER_EMPTY(&buff) == 1);
 	for (i = 0; i < test_arr_size; i++) {
@@ -81,18 +78,18 @@ int main() {
 
 	assert(RINGBUFFER_FREE_SIZE(&buff) == BUFFER_SIZE - test_arr_size);
 	assert(RINGBUFFER_FULL(&buff) == 0);
+	assert(RINGBUFFER_EMPTY(&buff) == 0);
 	END_TEST(test_num);
 
 	/**
-	 * Pop items to empty buffer
+	 * Pop test data
 	 */
-	START_NEW_TEST(test_num, "Pop items to empty buffer");
+	START_NEW_TEST(test_num, "Pop test data");
 	assert(RINGBUFFER_FULL(&buff) == 0);
 
 	i = 0;
 	for (;ringbuffer_pop(&buff, &tmp) == true;)
 	{
-		//assert(RINGBUFFER_FREE_SIZE(&buff) == (i + 1));
 		assert(tmp == test_arr[i++]);
 	}
 
@@ -106,12 +103,42 @@ int main() {
 	 * 
 	 */
 	START_NEW_TEST(test_num, "Test current size");
+	
+	ringbuffer_reset(&buff);
+	assert(RINGBUFFER_EMPTY(&buff) == 1);
+	assert(fill_buffer_to_full(&buff) == true);
+	assert(RINGBUFFER_FREE_SIZE(&buff) == 0);
+	assert(RINGBUFFER_EMPTY(&buff) == 0);
+	
+	i = RINGBUFFER_MAXSIZE(&buff);
+	for (;ringbuffer_pop(&buff, &tmp) == true;)
+	{
+		assert(RINGBUFFER_CURR_SIZE(&buff) == --i);
+	}
+	
+	assert(RINGBUFFER_CURR_SIZE(&buff) == 0);
 	END_TEST(test_num);
 
 	/**
 	 * 
 	 */
 	START_NEW_TEST(test_num, "Fill buffer to full and empty it then");
+	ringbuffer_reset(&buff);
+	assert(RINGBUFFER_EMPTY(&buff) == 1);
+	assert(fill_buffer_to_full(&buff) == true);
+	assert(RINGBUFFER_FREE_SIZE(&buff) == 0);
+	assert(RINGBUFFER_EMPTY(&buff) == 0);
+	
+	i = 0;
+	for (;ringbuffer_pop(&buff, &tmp) == true;)
+	{
+		assert(tmp == i++);
+	}
+	assert(RINGBUFFER_FULL(&buff) == 0);
+	assert(RINGBUFFER_FREE_SIZE(&buff) == BUFFER_SIZE);
+	assert(RINGBUFFER_CURR_SIZE(&buff) == 0);
+	assert(RINGBUFFER_EMPTY(&buff) == 1);
+	
 	END_TEST(test_num);
 
 	/**
@@ -121,22 +148,13 @@ int main() {
 
 	ringbuffer_reset(&buff);
 	assert(RINGBUFFER_EMPTY(&buff) == 1);
-	for (i = 0; i < RINGBUFFER_MAXSIZE(&buff); i++) {
-		assert(ringbuffer_push(&buff, i) == true);
-		assert(RINGBUFFER_EMPTY(&buff) == 0);
-		assert(RINGBUFFER_CURR_SIZE(&buff) == (i + 1));
-	}
-
+	assert(fill_buffer_to_full(&buff) == true);
 	assert(RINGBUFFER_FREE_SIZE(&buff) == 0);
 	assert(RINGBUFFER_EMPTY(&buff) == 0);
 
 	ringbuffer_reset(&buff);
 	assert(RINGBUFFER_EMPTY(&buff) == 1);
-	for (i = 0; i < RINGBUFFER_MAXSIZE(&buff); i++) {
-		assert(ringbuffer_push(&buff, i) == true);
-		assert(RINGBUFFER_EMPTY(&buff) == 0);
-		assert(RINGBUFFER_CURR_SIZE(&buff) == (i + 1));
-	}
+	assert(fill_buffer_to_full(&buff) == true);
 
 	END_TEST(test_num);
 
