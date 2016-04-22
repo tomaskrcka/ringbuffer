@@ -35,7 +35,7 @@ int main() {
 	uint32_t i;
 
 	/**
-	 * 
+	 * Init buffer and test it
 	 */
 	START_NEW_TEST(test_num, "Buffer init");
 
@@ -48,7 +48,7 @@ int main() {
 	END_TEST(test_num);
 
 	/**
-	 * 
+	 * Push one item and pop it
 	 */
 	START_NEW_TEST(test_num, "Push one item and pop it");
 	assert(ringbuffer_push(&buff, 10) == true);
@@ -64,9 +64,9 @@ int main() {
 	END_TEST(test_num);
 
 	/**
-	 * 
+	 * Fill buffer to full
 	 */
-	START_NEW_TEST(test_num, "Push item if buffer full");
+	START_NEW_TEST(test_num, "Fill buffer to full");
 
 	assert(RINGBUFFER_EMPTY(&buff) == 1);
 	for (i = 0; i < RINGBUFFER_MAXSIZE(&buff); i++) {
@@ -80,9 +80,9 @@ int main() {
 	END_TEST(test_num);
 
 	/**
-	 * 
+	 * Pop items to empty buffer
 	 */
-	START_NEW_TEST(test_num, "Pop item if buffer empty");
+	START_NEW_TEST(test_num, "Pop items to empty buffer");
 	assert(RINGBUFFER_FULL(&buff) == 1);
 
 	i = 0;
@@ -115,7 +115,7 @@ int main() {
 	 */
 	START_NEW_TEST(test_num, "Reset buffer and fill again");
 
-	ringbuffer_reset (&buff);
+	ringbuffer_reset(&buff);
 	assert(RINGBUFFER_EMPTY(&buff) == 1);
 	for (i = 0; i < RINGBUFFER_MAXSIZE(&buff); i++) {
 		assert(ringbuffer_push(&buff, i) == true);
@@ -125,7 +125,7 @@ int main() {
 
 	assert(RINGBUFFER_FREE_SIZE(&buff) == 0);
 	assert(RINGBUFFER_EMPTY(&buff) == 0);
-	
+
 	ringbuffer_reset(&buff);
 	assert(RINGBUFFER_EMPTY(&buff) == 1);
 	for (i = 0; i < RINGBUFFER_MAXSIZE(&buff); i++) {
