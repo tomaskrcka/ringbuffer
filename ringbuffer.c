@@ -32,16 +32,11 @@ static inline bool ringbuffer_check_validity(const struct ringbuffer_t *buffer) 
 	return true;
 }
 
-bool ringbuffer_clear(struct ringbuffer_t *buffer)
+void ringbuffer_reset(struct ringbuffer_t *buffer)
 {
-	if (buffer == NULL)
-		return false;
-
 	buffer->count = 0;
 	buffer->head = 0;
 	buffer->tail = 0;
-
-	return true;
 }
 
 bool ringbuffer_pop(struct ringbuffer_t *buffer, uint32_t *data) {

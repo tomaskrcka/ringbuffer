@@ -23,7 +23,7 @@ bool fill_buffer(struct ringbuffer_t *buf, const uint32_t *test_pattern, uint16_
     
     for (i = 0; i < size; i++) {
     	if (!ringbuffer_push(buf, test_pattern[i])) {
-    		ringbuffer_clear(buf);
+    		ringbuffer_reset(buf);
     		return false;
     	}
     }

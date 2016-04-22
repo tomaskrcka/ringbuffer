@@ -27,7 +27,7 @@ struct ringbuffer_t {
 #define RINGBUFFER_MAXSIZE(buffer) buffer->max_length
 
 bool ringbuffer_pop(struct ringbuffer_t *buffer, uint32_t *data);
-bool ringbuffer_clear(struct ringbuffer_t *buffer);
+void ringbuffer_reset(struct ringbuffer_t *buffer);
 bool ringbuffer_push(struct ringbuffer_t *buffer, uint32_t data);
 bool ringbuffer_peek(const struct ringbuffer_t *buffer, uint32_t *data);
 
