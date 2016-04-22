@@ -90,7 +90,7 @@ int main() {
 	assert(RINGBUFFER_FULL(&buff) == 0);
 
 	i = 0;
-	for (;ringbuffer_pop(buff, item) == true;)
+	for (;ringbuffer_pop(&buff, &tmp) == true;)
 	{
 		//assert(RINGBUFFER_FREE_SIZE(&buff) == (i + 1));
 		assert(tmp == test_arr[i++]);
