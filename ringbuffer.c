@@ -88,8 +88,6 @@ bool ringbuffer_peek(const struct ringbuffer_t *buffer, uint32_t *data) {
 	if (RINGBUFFER_EMPTY(buffer) >= 1)
 		return false;
 
-	if (data == NULL)
-		return false;
 
 	*data = buffer->data[buffer->tail];
 
