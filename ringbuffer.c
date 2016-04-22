@@ -26,7 +26,7 @@ static inline bool ringbuffer_check_validity(const struct ringbuffer_t *buffer) 
 			|| (buffer->tail >= buffer->max_length))
 		return false;
 
-	if (buffer->count >= buffer->max_length)
+	if (buffer->count > buffer->max_length)
 		return false;
 
 	return true;
@@ -40,8 +40,9 @@ void ringbuffer_reset(struct ringbuffer_t *buffer)
 }
 
 bool ringbuffer_pop(struct ringbuffer_t *buffer, uint32_t *data) {
-	if ((data == NULL) || (!ringbuffer_check_validity(buffer)))
+	if ((data == NULL) || (!ringbuffer_check_validity(buffer))) {
 		return false;
+	}
 
 	if (RINGBUFFER_EMPTY(buffer) >= 1)
 		return false;
