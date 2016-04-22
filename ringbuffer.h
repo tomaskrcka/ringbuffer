@@ -22,11 +22,11 @@ struct ringbuffer_t {
 #define RINGBUFFER_DEFINE(buff,size) uint32_t buff##_space[size]; struct ringbuffer_t buff = { buff##_space,0,0,0,size}
 #define RINGBUFFER_DEFINE_ARR(buff, arr) struct ringbuffer_t buff = { arr,0,0,0, (uint16_t) (sizeof(arr)/sizeof(uint32_t))}
 
-#define RINGBUFFER_EMPTY(buffer) (buffer.count == 0)
-#define RINGBUFFER_FULL(buffer) ((buffer.max_length - buffer.count) == 0)
-#define RINGBUFFER_CURR_SIZE(buffer) buffer.count
-#define RINGBUFFER_MAXSIZE(buffer) buffer.max_length
-#define RINGBUFFER_FREE_SIZE(buffer) (buffer.max_length - buffer.count)
+#define RINGBUFFER_EMPTY(buffer) ((buffer)->count == 0)
+#define RINGBUFFER_FULL(buffer) (((buffer)->max_length - (buffer)->count) == 0)
+#define RINGBUFFER_CURR_SIZE(buffer) (buffer)->count
+#define RINGBUFFER_MAXSIZE(buffer) (buffer)->max_length
+#define RINGBUFFER_FREE_SIZE(buffer) ((buffer)->max_length - (buffer)->count)
 
 bool ringbuffer_pop(struct ringbuffer_t *buffer, uint32_t *data);
 void ringbuffer_reset(struct ringbuffer_t *buffer);

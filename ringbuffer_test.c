@@ -7,7 +7,7 @@
 
 
 #define START_NEW_TEST(test_num, name) \
-    fprintf(stderr, "Test (%s) %d...", name, (++test_num));
+    fprintf(stderr, "Test %d (%s) ... ", (++test_num), name);
 
 #define END_TEST(test_num) \
     fprintf(stderr, "pass.\n");
@@ -17,7 +17,7 @@ bool fill_buffer(struct ringbuffer_t *buf, const uint32_t *test_pattern, uint16_
 {
     uint16_t i;
     
-    if (size > (RINGBUFFER_FREE_SIZE((*buf))))
+    if (size > (RINGBUFFER_FREE_SIZE(buf)))
     {
     	return false;
     }
@@ -39,18 +39,18 @@ int main() {
 	START_NEW_TEST(test_num, "Buffer init");
 	
 	RINGBUFFER_DEFINE(buff, 32);
-	assert(RINGBUFFER_MAXSIZE(buff) == 32);
-	assert(RINGBUFFER_FULL(buff) == 0);
-	assert(RINGBUFFER_EMPTY(buff) == 1);
-	assert(RINGBUFFER_FREE_SIZE(buff) == 32);
-	assert(RINGBUFFER_CURR_SIZE(buff) == 0);
+	assert(RINGBUFFER_MAXSIZE(&buff) == 32);
+	assert(RINGBUFFER_FULL(&buff) == 0);
+	assert(RINGBUFFER_EMPTY(&buff) == 1);
+	assert(RINGBUFFER_FREE_SIZE(&buff) == 32);
+	assert(RINGBUFFER_CURR_SIZE(&buff) == 0);
 	
 	END_TEST(test_num);
 	
 	START_NEW_TEST(test_num, "Push one item and pop it");
 	END_TEST(test_num);
 	
-	START_NEW_TEST(test_num, "Push item if buffer full ");
+	START_NEW_TEST(test_num, "Push item if buffer full");
 	END_TEST(test_num);
 		
 	START_NEW_TEST(test_num, "Pop item if buffer empty");
