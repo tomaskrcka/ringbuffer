@@ -9,11 +9,11 @@
 
 #if __STDC_VERSION__ >= 199901L
 /* C99 code */
-#include <stdint.h>
-#include <stdbool.h>
+# include <stdint.h>
+# include <stdbool.h>
 
 #else
-#error "Compiler must support C99"
+# error "Compiler must support C99"
 #endif
 
 #include "ringbuffer.h"
