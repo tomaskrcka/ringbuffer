@@ -19,6 +19,9 @@ struct ringbuffer_t {
 	const uint16_t max_length;
 };
 
+/**
+ * Create buffer with defined size
+ */
 #define RINGBUFFER_DEFINE(buff,size) uint32_t buff##_space[size]; struct ringbuffer_t buff = { buff##_space,0,0,0,size}
 
 #define RINGBUFFER_EMPTY(buffer) ((buffer)->count == 0)

@@ -32,6 +32,11 @@ static inline bool ringbuffer_check_validity(const struct ringbuffer_t *buffer) 
 	return true;
 }
 
+/**
+ * Reset buffer to empty state
+ *
+ * buffer: ringbuffer
+ */
 void ringbuffer_reset(struct ringbuffer_t *buffer)
 {
 	buffer->count = 0;
@@ -39,6 +44,12 @@ void ringbuffer_reset(struct ringbuffer_t *buffer)
 	buffer->tail = 0;
 }
 
+/**
+ * buffer: ringbuffer
+ * data: pointer to data for storing result
+ *
+ * returns: true if pop was performed without error
+ */
 bool ringbuffer_pop(struct ringbuffer_t *buffer, uint32_t *data) {
 	if ((data == NULL) || (!ringbuffer_check_validity(buffer))) {
 		return false;
@@ -59,6 +70,12 @@ bool ringbuffer_pop(struct ringbuffer_t *buffer, uint32_t *data) {
 	return true;
 }
 
+/**
+ * buffer: ringbuffer
+ * data:  data for storing to buffer
+ *
+ * returns: true if push was performed without error
+ */
 bool ringbuffer_push(struct ringbuffer_t *buffer, uint32_t data) {
 	if (!ringbuffer_check_validity(buffer))
 		return false;
@@ -78,6 +95,15 @@ bool ringbuffer_push(struct ringbuffer_t *buffer, uint32_t data) {
 	return true;
 }
 
+
+/**
+ * Value which is stored on peek of buffer
+ *
+ * buffer: ringbuffer
+ * data: pointer to data for storing result
+ *
+ * returns: true if peek was performed without error
+ */
 bool ringbuffer_peek(const struct ringbuffer_t *buffer, uint32_t *data) {
 	if ((data == NULL) || (!ringbuffer_check_validity(buffer)))
 		return false;

@@ -1,5 +1,5 @@
 
-CC      = $(CROSS_COMPILE)gcc -std=c99
+CC      = $(CROSS_COMPILE)gcc -std=c99 -Wall -Wextra -Wmissing-prototypes -Wstrict-prototypes
 
 DEPS    = ringbuffer.h 
 CFILES    = ringbuffer.c
