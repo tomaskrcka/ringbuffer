@@ -66,6 +66,7 @@ int main(void) {
 		uint32_t test_arr[] = { 4, 3, 5, 6, 1, 12, 345, 4, 5, 1, 5 };
 		uint16_t test_arr_size = (uint16_t) sizeof(test_arr) / sizeof(uint32_t);
 
+		ringbuffer_reset(&buff);
 		assert(RINGBUFFER_EMPTY(&buff) == 1);
 		for (i = 0; i < test_arr_size; i++) {
 			assert(ringbuffer_push(&buff, test_arr[i]) == true);
@@ -112,6 +113,7 @@ int main(void) {
 		}
 
 		assert(RINGBUFFER_CURR_SIZE(&buff) == 0);
+		assert(i == 0);
 	}
 	END_TEST(test_num);
 

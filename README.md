@@ -16,9 +16,9 @@
 
 
 ## Working with buffer
-Definded macro *RINGBUFFER_DEFINE(buffer, size)*, the macro creates a static array of defined size and init necessary values. 
+Defined macro *RINGBUFFER_DEFINE(buffer, size)*, the macro creates a static array of defined size and init necessary values. 
 
-How to work with buffer and implemented operations can be found  in ringbuffer_test.c
+How to work with buffer and implemented operations can be found in ringbuffer_test.c
 
 
 ## Compilation
