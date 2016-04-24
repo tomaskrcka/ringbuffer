@@ -23,10 +23,10 @@ The program has been compiled and tested under linux system.
 
 It's written for C99 support. 
 
-** Requirements: **
+**Requirements:**
         gcc, make
 
-** How to compile: **
+**How to compile:**
         $ make
 
 After this the "ringbuffer_test" executable file will be created.
