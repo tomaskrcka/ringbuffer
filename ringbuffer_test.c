@@ -48,13 +48,15 @@ int main(void) {
 
 	START_NEW_TEST(test_num, "Push one item and pop it");
 	{
-		assert(ringbuffer_push(&buff, 10) == true);
+		const uint32_t testvalue = 10;
+
+		assert(ringbuffer_push(&buff, testvalue) == true);
 		assert(RINGBUFFER_EMPTY(&buff) == 0);
 		assert(RINGBUFFER_FREE_SIZE(&buff) == (BUFFER_SIZE - 1));
 		assert(RINGBUFFER_CURR_SIZE(&buff) == 1);
 
 		assert(ringbuffer_pop(&buff, &tmp) == true);
-		assert(tmp == 10);
+		assert(tmp == testvalue);
 		assert(RINGBUFFER_EMPTY(&buff) == 1);
 		assert(RINGBUFFER_FREE_SIZE(&buff) == BUFFER_SIZE);
 		assert(RINGBUFFER_CURR_SIZE(&buff) == 0);
@@ -120,6 +122,8 @@ int main(void) {
 
 	START_NEW_TEST(test_num, "Fill buffer to full and empty it then");
 	{
+		const uint32_t testvalue = 10;
+
 		ringbuffer_reset(&buff);
 		assert(RINGBUFFER_EMPTY(&buff) == 1);
 		assert(fill_buffer(&buff, RINGBUFFER_FREE_SIZE(&buff)) == true);
@@ -127,7 +131,7 @@ int main(void) {
 		assert(RINGBUFFER_EMPTY(&buff) == 0);
 		assert(RINGBUFFER_FULL(&buff) == 1);
 
-		assert(ringbuffer_push(&buff, 10) == false);
+		assert(ringbuffer_push(&buff, testvalue) == false);
 
 		i = 0;
 		for (; ringbuffer_pop(&buff, &tmp) == true;) {
@@ -157,17 +161,20 @@ int main(void) {
 
 	START_NEW_TEST(test_num, "Test peek");
 	{
+		const uint32_t testvalue1 = 10;
+		const uint32_t testvalue2 = 11;
+
 		ringbuffer_reset(&buff);
-		assert(ringbuffer_push(&buff, 10) == true);
-		assert(ringbuffer_push(&buff, 11) == true);
+		assert(ringbuffer_push(&buff, testvalue1) == true);
+		assert(ringbuffer_push(&buff, testvalue2) == true);
 
 		assert(ringbuffer_peek(&buff, &tmp) == true);
-		assert(tmp == 10);
+		assert(tmp == testvalue1);
 		assert(ringbuffer_pop(&buff, &tmp) == true);
-		assert(tmp == 10);
+		assert(tmp == testvalue1);
 
 		assert(ringbuffer_peek(&buff, &tmp) == true);
-		assert(tmp == 11);
+		assert(tmp == testvalue2);
 		assert(RINGBUFFER_CURR_SIZE(&buff) == 1);
 	}
 	END_TEST(test_num);
@@ -202,7 +209,6 @@ int main(void) {
 				i = 0;
 			assert(tmp == i++);
 		}
-		assert(tmp == 8);
 	}
 	END_TEST(test_num);
 	return 0;
