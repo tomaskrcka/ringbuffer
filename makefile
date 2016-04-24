@@ -1,10 +1,7 @@
 
 CC      = $(CROSS_COMPILE)gcc -std=c99 -Wall -Wextra -Wmissing-prototypes -Wstrict-prototypes
 
-DEPS    = ringbuffer.h 
-CFILES    = ringbuffer.c
 OBJ = ringbuffer.o ringbuffer_test.o
-
 
 .PHONY: clean
 .PHONY: all

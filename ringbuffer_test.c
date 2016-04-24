@@ -204,6 +204,7 @@ int main(void) {
 		assert(tmp == 8);
 	}
 	END_TEST(test_num);
+	return 0;
 }
 
 
