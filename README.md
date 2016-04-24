@@ -39,4 +39,19 @@ After this the "ringbuffer_test" executable file will be created.
 
 Unit tests - how to use the ringbuffer and test of implemented operations
 
+#### Run the test
+
+```
+krcka@krcka-GA-MA785GMT-UD2H ~/workspace/ringbuffer $ ./ringbuffer_test 
+Test 1 (Buffer init) ... pass.
+Test 2 (Push one item and pop it) ... pass.
+Test 3 (Fill buffer with test data) ... pass.
+Test 4 (Test reset buffer) ... pass.
+Test 5 (Test current size) ... pass.
+Test 6 (Fill buffer to full and empty it then) ... pass.
+Test 7 (Reset buffer and fill again) ... pass.
+Test 8 (Test peek) ... pass.
+Test 9 (Test buffer size 0) ... pass.
+Test 10 (Fill buffer two times) ... pass.
+```
 
