@@ -63,8 +63,8 @@ int main(void) {
 
 	START_NEW_TEST(test_num, "Fill buffer with test data");
 	{
-		uint32_t test_arr[] = { 4, 3, 5, 6, 1, 12, 345, 4, 5, 1, 5 };
-		uint16_t test_arr_size = (uint16_t) sizeof(test_arr) / sizeof(uint32_t);
+		uint32_t test_arr[] = { 4, 3, 5, 6, 1, 12, 345, 4, 5, 1, 15 };
+		uint16_t test_arr_size = (uint16_t) (sizeof(test_arr) / sizeof(uint32_t));
 
 		ringbuffer_reset(&buff);
 		assert(RINGBUFFER_EMPTY(&buff) == 1);
@@ -88,6 +88,7 @@ int main(void) {
 		assert(RINGBUFFER_FREE_SIZE(&buff) == BUFFER_SIZE);
 		assert(RINGBUFFER_CURR_SIZE(&buff) == 0);
 		assert(RINGBUFFER_EMPTY(&buff) == 1);
+		assert(tmp == test_arr[test_arr_size - 1]);
 	}
 	END_TEST(test_num);
 
