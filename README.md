@@ -1,4 +1,4 @@
-# Ringbuffer - branch1
+# Ringbuffer - branch3
 
 ## Implemented operations
 - ringbuffer_pop()
