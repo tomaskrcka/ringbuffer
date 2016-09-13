@@ -1,4 +1,5 @@
-# Ringbuffer - branch3
+# Ringbuffer - branch3 - pokus
+
 
 ## Implemented operations
 - ringbuffer_pop()
